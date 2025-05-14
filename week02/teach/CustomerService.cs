@@ -95,7 +95,7 @@ public class CustomerService
     private void AddNewCustomer()
     {
         // Verify there is room in the service queue
-        if (_queue.Count >= _maxSize)
+        if (_queue.Count >= _maxSize) //Defect 1: Correctly checking the maxSize using ">="
         {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
