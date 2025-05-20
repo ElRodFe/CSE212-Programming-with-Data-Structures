@@ -22,7 +22,27 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var set = new HashSet<string>();
+        var pairs = new List<string>();
+
+        foreach (var word in words)
+        {
+            //Reverse the word
+            char[] charArray = word.ToCharArray();
+            Array.Reverse(charArray);
+            string reversedWord = new string(charArray);
+
+            //Check if reversed word in set
+            if (set.Contains(reversedWord))
+            {
+                pairs.Add($"{reversedWord} & {word}");
+            }
+            else
+            {
+                set.Add(word);
+            }
+        }
+        return pairs.ToArray();
     }
 
     /// <summary>
@@ -42,6 +62,16 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
+            var degree = fields[3];
+
+            if (!degrees.ContainsKey(degree))
+            {
+                degrees[degree] = 1;
+            }
+            else
+            {
+                degrees[degree]++;
+            }
             // TODO Problem 2 - ADD YOUR CODE HERE
         }
 
