@@ -1,3 +1,5 @@
+using System.Data;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -97,7 +99,41 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var map = new Dictionary<char, int>();
+
+        foreach (var letter in word1.ToLower().Replace(" ", ""))
+        {
+            if (map.ContainsKey(letter))
+            {
+                map[letter] += 1;
+            }
+            else
+            {
+                map[letter] = 1;
+            }
+        }
+
+        foreach (var letter in word2.ToLower().Replace(" ", ""))
+        {
+            if (map.ContainsKey(letter))
+            {
+                map[letter] -= 1;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        foreach (var count in map.Values)
+        {
+            if (count != 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
