@@ -33,6 +33,21 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+        Node newNode = new(value);
+
+        //if the list is empty, then point both the head and tail to the new node.
+        if (_tail is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        //if the list is not empty, then only the tail will be affected
+        else
+        {
+            newNode.Prev = _tail; //Connect the new node to te previous tail
+            _tail.Next = newNode; //Connect the previous tail to the new node
+            _tail = newNode; //Update the tail to point to the new node
+        }
     }
 
 
@@ -65,6 +80,18 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+
+        //If list has only one item or is empty set list to null (empty)
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        }
+        else if (_tail is not null)
+        {
+            _tail.Prev!.Next = null; //Disconnect the prev-to last node from las node
+            _tail = _tail.Prev; //Update the Tail to pint to the prev-to last node
+        }
     }
 
     /// <summary>
@@ -109,6 +136,28 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                if (curr == _tail)
+                {
+                    RemoveTail();
+                }
+                else if (curr == _head)
+                {
+                    RemoveHead();
+                }
+                else
+                {
+                    curr.Next!.Prev = curr.Prev; //Set the prev of the node after current to the node before current
+                    curr.Prev!.Next = curr.Next; //Set the next of the node before current to the node after current
+                }
+                return;
+            }
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -168,8 +217,10 @@ public class LinkedList : IEnumerable<int>
     }
 }
 
-public static class IntArrayExtensionMethods {
-    public static string AsString(this IEnumerable array) {
+public static class IntArrayExtensionMethods
+{
+    public static string AsString(this IEnumerable array)
+    {
         return "<IEnumerable>{" + string.Join(", ", array.Cast<int>()) + "}";
     }
 }
