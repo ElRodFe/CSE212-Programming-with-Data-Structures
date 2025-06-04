@@ -122,10 +122,20 @@ public static class Recursion
         if (s == 3)
             return 4;
 
-        // TODO Start Problem 3
+        if (remember == null)
+        {
+            remember = new Dictionary<int, decimal>();
+        }
 
-        // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        // TODO Start Problem 3
+        if (remember.ContainsKey(s))
+        {
+            return remember[s];
+        }
+
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+        remember[s] = ways;
+
         return ways;
     }
 
@@ -145,6 +155,22 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+        if (!pattern.Contains("*"))
+        {
+            results.Add(pattern);
+            return;
+        }
+        else
+        {
+            int index = pattern.IndexOf("*");
+
+            string using0 = pattern.Substring(0, index) + "0" + pattern.Substring(index + 1);
+            string using1 = pattern.Substring(0, index) + "1" + pattern.Substring(index + 1);
+
+
+            WildcardBinary(using0, results);
+            WildcardBinary(using1, results);
+        }
     }
 
     /// <summary>
@@ -160,7 +186,7 @@ public static class Recursion
             currPath = new List<ValueTuple<int, int>>();
         }
 
-        // currPath.Add((1,2)); // Use this syntax to add to the current path
+        //currPath.Add((x, y)); // Use this syntax to add to the current path
 
         // TODO Start Problem 5
         // ADD CODE HERE
