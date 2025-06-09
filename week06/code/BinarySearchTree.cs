@@ -19,7 +19,10 @@ public class BinarySearchTree : IEnumerable<int>
         // If the list is not empty, then only head will be affected.
         else
         {
-            _root.Insert(value);
+            if (!_root.Contains(value))
+            {
+                _root.Insert(value);
+            }
         }
     }
 
@@ -99,8 +102,10 @@ public class BinarySearchTree : IEnumerable<int>
     }
 }
 
-public static class IntArrayExtensionMethods {
-    public static string AsString(this IEnumerable array) {
+public static class IntArrayExtensionMethods
+{
+    public static string AsString(this IEnumerable array)
+    {
         return "<IEnumerable>{" + string.Join(", ", array.Cast<int>()) + "}";
     }
 }
