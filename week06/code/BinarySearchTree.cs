@@ -19,10 +19,7 @@ public class BinarySearchTree : IEnumerable<int>
         // If the list is not empty, then only head will be affected.
         else
         {
-            if (!_root.Contains(value))
-            {
-                _root.Insert(value);
-            }
+            _root.Insert(value);
         }
     }
 
