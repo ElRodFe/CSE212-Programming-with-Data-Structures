@@ -48,11 +48,22 @@ public class Node
         {
             return true;
         }
+        else if (value < Data && Left != null)
+        {
+            return Left.Contains(value);
+        }
+        else if (value > Data && Right != null)
+        {
+            return Right.Contains(value);
+        }
         return false;
     }
 
     public int GetHeight()
     {
         // TODO Start Problem 4
+        int leftHeight = (Left == null) ? 0 : Left.GetHeight();
+        int rightHeight = (Right == null) ? 0 : Right.GetHeight();
+        return 1 + Math.Max(leftHeight, rightHeight);
     }
 }
